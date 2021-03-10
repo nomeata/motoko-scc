@@ -31,7 +31,7 @@ module {
   /// It uses iterators, so that the caller can flexibly use various data
   /// structures.
   ///
-  /// The result is the list of strongly connected components, in toplogical order.
+  /// The result is the list of strongly connected components, in topological order.
   public func scc<Node>
     ( compareTo : (Node, Node) -> Order.Order,
       edges : Iter.Iter<(Node,Iter.Iter<Node>)> ) :
