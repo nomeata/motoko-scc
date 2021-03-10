@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html><head title="Doc"><meta charset="UTF-8"/><link href="styles.css" rel="stylesheet"/></head><body><nav class="sidebar"><h3>Modules</h3><ul><li><li><a href="scc.html">scc</a></li></li></ul><h3>Declarations</h3><ul><li><li><a href="#scc">scc</a></li></li></ul></nav><div class="documentation"><h1>scc</h1><p>Stongly connected components</p>
+<p>This library provides a simple implementation of a SCC algorithm. It is parametrized over the <code>Node</code> type, which must be comparable. (The algorithm uses the RBTree from <code>base</code> internally).</p>
+<pre class="motoko"><code class="motoko">import SCC &quot;mo:scc/scc&quot;;
+
+assert(
+  SCC.scc&lt;Text&gt;(Text.compare, [
+    (&quot;A&quot;, [&quot;C&quot;].vals()),
+    (&quot;B&quot;, [&quot;B&quot;, &quot;A&quot;].vals()),
+    (&quot;C&quot;, [&quot;A&quot;].vals()),
+  ].vals())
+  == [[&quot;B&quot;],[&quot;A&quot;, &quot;C&quot;]);</code></pre><div class="declaration"><h4 class="function" id="scc"><code><span class="keyword">public func </span><span class="fnname">scc</span>&lt;<span class="type">Node</span>&gt;(<span class="parameter">compareTo</span> : (<span class="type">Node</span>, <span class="type">Node</span>) -&gt; <span class="type">Order.Order</span>, <span class="parameter">edges</span> : <span class="type">Iter.Iter</span>&lt;(<span class="type">Node</span>, <span class="type">Iter.Iter</span>&lt;<span class="type">Node</span>&gt;)&gt;) : [[<span class="type">Node</span>]]</code></h4><p><p>Calculates the list of strongly connected components of the graph
+described by the parameter <code>edges</code>.</p>
+<p>The <code>edges</code> parameter lists each node, together with its outgoing edges.
+It uses iterators, so that the caller can flexibly use various data
+structures.</p>
+<p>The result is the list of strongly connected components, in topological order.</p>
+</p></div></div></body></html>
