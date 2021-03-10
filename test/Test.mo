@@ -5,7 +5,7 @@ import Text "mo:base/Text";
 import Iter "mo:base/Iter";
 import List "mo:base/List";
 import Array "mo:base/Array";
-import SCC "../src";
+import SCC "../src/scc";
 
 let suite = S.suite("scc", [
     S.test("empty input",

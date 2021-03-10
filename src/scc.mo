@@ -4,7 +4,7 @@
 ///
 ///
 /// ```motoko
-/// import SCC "mo:scc";
+/// import SCC "mo:scc/scc";
 ///
 /// assert(
 ///   SCC.scc<Text>(Text.compare, [
