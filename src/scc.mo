@@ -18,6 +18,7 @@
 import Iter "mo:base/Iter";
 import Order "mo:base/Order";
 import Option "mo:base/Option";
+import Prelude "mo:base/Prelude";
 import RBTree "mo:base/RBTree";
 import List "mo:base/List";
 import Debug "mo:base/Debug";
@@ -75,8 +76,8 @@ module {
             if (Option.isNull(done.get(w))) {
               // Repeatedly pop vertices from P
               label done_popping loop {
-                let (x, p_tail) = Option.unwrap(p);
-                let nx = Option.unwrap(n.get(x));
+                let (x, p_tail) = unwrap(p);
+                let nx = unwrap(n.get(x));
                 // until the top element of P has a preorder number less than or equal to the preorder number of w.
                 if (nx <= nw) {break done_popping; };
                 p := p_tail;
@@ -87,12 +88,12 @@ module {
       };
 
       // If v is the top element of P:
-      let (x, p_tail) = Option.unwrap(p);
+      let (x, p_tail) = unwrap(p);
       if (compareTo(x,v) == #equal) {
         // Pop vertices from S until v has been popped
         var scc = List.nil<Node>();
         label done_popping loop {
-          let (x, s_tail) = Option.unwrap(s);
+          let (x, s_tail) = unwrap(s);
           s := s_tail;
           done.put(x,());
           scc := List.push(x, scc);
@@ -115,5 +116,19 @@ module {
     };
 
     return List.toArray(sccs);
-  }
+  };
+
+
+  // This got removed from base because it's supposed to be evil.
+  // But unless the language gives me a strong enough type system to prove
+  // that my stacks above are non-empty, I need it.
+  func unwrap<T>(x : ?T) : T =
+    switch x {
+      case null {
+        Prelude.unreachable();
+        // use when available
+	// Debug.trap("internal error in motoko-scc");
+      };
+      case (?x_) { x_ };
+    };
 }
